@@ -1,128 +1,44 @@
+<!-- usuarios.html -->
+<div class="search-container" style="margin-bottom: 1em;">
+  <input
+    type="text"
+    [(ngModel)]="busqueda"
+    placeholder="Buscar usuario..."
+    style="padding: 0.5em; width: 100%; max-width: 300px;"
+  />
+</div>
 
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="usuarios.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Usuarios</h1>
-
-    <!-- Buscador -->
-    <input
-      type="text"
-      id="search"
-      placeholder="Buscar usuario..."
-    />
-
-    <!-- Tabla de usuarios -->
-    <table id="usuariosTable">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>contraseña</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Se llenará dinámicamente -->
-      </tbody>
-    </table>
-  </div>
-
-  <script>
-    let usuarios = [];
-
-    // 1) Carga todos los usuarios desde la API
-    async function cargarUsuarios() {
-      try {
-        const res = await fetch('/usuarios');
-        usuarios = await res.json();
-        mostrarUsuarios(usuarios);
-      } catch (err) {
-        console.error('Error al cargar usuarios:', err);
-      }
-    }
-
-    // 2) Muestra en la tabla la lista que reciba
-    function mostrarUsuarios(lista) {
-      const tbody = document.querySelector('#usuariosTable tbody');
-      tbody.innerHTML = '';
-      lista.forEach(u => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${u.nombre}</td>
-          <td>${u.correo}</td>
-          <td>
-            <button class="edit-btn"   data-id="${u.id}">Editar</button>
-            <button class="delete-btn" data-id="${u.id}">Eliminar</button>
-          </td>`;
-        tbody.appendChild(tr);
-      });
-
-      // Asociar eventos a botones
-      document.querySelectorAll('.delete-btn').forEach(btn =>
-        btn.addEventListener('click', () => eliminarUsuario(btn.dataset.id))
-      );
-      document.querySelectorAll('.edit-btn').forEach(btn =>
-        btn.addEventListener('click', () => editarUsuario(btn.dataset.id))
-      );
-    }
-
-    // 3) Filtrado local al tipear en el buscador
-    document.getElementById('search').addEventListener('input', e => {
-      const term = e.target.value.toLowerCase();
-      if (!term) {
-        mostrarUsuarios(usuarios);
-      } else {
-        const filtrados = usuarios.filter(u =>
-          u.nombre.toLowerCase().includes(term) ||
-          u.correo.toLowerCase().includes(term)
-        );
-        mostrarUsuarios(filtrados);
-      }
-    });
-
-    // 4) Eliminar un usuario por ID
-    async function eliminarUsuario(id) {
-      if (!confirm('¿Eliminar este usuario?')) return;
-      try {
-        await fetch(`/usuarios/${id}`, { method: 'DELETE' });
-        usuarios = usuarios.filter(u => u.id != id);
-        mostrarUsuarios(usuarios);
-      } catch (err) {
-        console.error('Error al eliminar usuario:', err);
-      }
-    }
-
-    // 5) Editar un usuario con prompts simples
-    async function editarUsuario(id) {
-      const usuario = usuarios.find(u => u.id == id);
-      const nombre      = prompt('Nombre:',      usuario.nombre);
-      const correo      = prompt('Correo:',      usuario.correo);
-      const contraseña  = prompt('Contraseña:',  usuario.contraseña);
-      if (nombre != null && correo != null && contraseña != null) {
-        try {
-          await fetch(`/usuarios/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre, correo, contraseña })
-          });
-          // Actualizar en la lista local y refrescar
-          usuario.nombre     = nombre;
-          usuario.correo     = correo;
-          usuario.contraseña = contraseña;
-          mostrarUsuarios(usuarios);
-        } catch (err) {
-          console.error('Error al editar usuario:', err);
-        }
-      }
-    }
-
-    // Arrancar al cargar la página
-    window.addEventListener('DOMContentLoaded', cargarUsuarios);
-  </script>
-</body>
-</html>
+<table style="width: 100%; border-collapse: collapse;">
+  <thead style="background-color: #f8d7da;">
+    <tr>
+      <th style="padding: 0.5em; border: 1px solid #ddd;">#</th>
+      <th style="padding: 0.5em; border: 1px solid #ddd;">Nombre</th>
+      <th style="padding: 0.5em; border: 1px solid #ddd;">Correo</th>
+      <th style="padding: 0.5em; border: 1px solid #ddd;">Contraseña</th>
+      <th style="padding: 0.5em; border: 1px solid #ddd;">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Si quieres filtrar en plantilla, necesitarás un pipe; aquí usamos filtrado en TS -->
+    <tr *ngFor="let usuario of usuariosFiltrados; let i = index">
+      <td style="padding: 0.5em; border: 1px solid #ddd;">{{ usuario.id }}</td>
+      <td style="padding: 0.5em; border: 1px solid #ddd;">{{ usuario.nombre }}</td>
+      <td style="padding: 0.5em; border: 1px solid #ddd;">{{ usuario.correo }}</td>
+      <td style="padding: 0.5em; border: 1px solid #ddd;">{{ usuario.contraseña }}</td>
+      <td style="padding: 0.5em; border: 1px solid #ddd;">
+        <button
+          (click)="UsuariosServis.delete(usuario.id)"
+          style="margin-right: 0.5em; padding: 0.3em 0.6em; border: none; background-color: #dc3545; color: white; cursor: pointer;"
+        >
+          Eliminar
+        </button>
+        <button
+          (click)="UsuariosServis.get(usuario.id)"
+          style="padding: 0.3em 0.6em; border: none; background-color: #ffc107; color: white; cursor: pointer;"
+        >
+          Editar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
