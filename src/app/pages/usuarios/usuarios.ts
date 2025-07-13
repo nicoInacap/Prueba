@@ -41,7 +41,7 @@ export class UsuariosComponent implements OnInit {
     if (this.modoEdicion && this.idUsuarioEditando != null) {
       // Actualizar usuario existente
       this.usuarioService
-        .actualizarUsuarios(this.idUsuarioEditando, this.usuarioNuevo)
+        .editarUsuarios(this.idUsuarioEditando, this.usuarioNuevo)
         .subscribe(() => {
           this.cargarUsuarios();
           this.resetFormulario();
@@ -59,7 +59,7 @@ export class UsuariosComponent implements OnInit {
 
   editarUsuario(usuario: Usuarios): void {
     this.modoEdicion = true;
-    this.idUsuarioEditando = usuario.id_usuario ?? null;
+    this.idUsuarioEditando = usuario.id ?? null;
     this.usuarioNuevo = { ...usuario };
   }
 

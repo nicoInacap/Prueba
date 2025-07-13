@@ -26,7 +26,7 @@
     <div class="col-md-3">
       <label class="form-label">Contraseña</label>
       <input
-        [(ngModel)]="usuarioNuevo.contraseña"
+        [(ngModel)]="usuarioNuevo['contraseña']"
         name="contraseña"
         class="form-control"
         type="password"
@@ -34,13 +34,8 @@
       />
     </div>
     <div class="col-md-1">
-      <button
-        type="submit"
-        class="btn btn-{{ modoEdicion ? 'warning' : 'success' }} w-100"
-      >
-        <i
-          class="bi bi-{{ modoEdicion ? 'arrow-repeat' : 'plus-circle' }}"
-        ></i>
+        <button type="submit" class="btn btn-{{ modoEdicion ? 'warning' : 'success' }} w-100">
+        <i class="bi bi-{{ modoEdicion ? 'arrow-repeat' : 'plus-circle' }}"></i>
       </button>
     </div>
   </form>
@@ -54,30 +49,23 @@
           <th>Nombre</th>
           <th>Correo</th>
           <th>Contraseña</th>
-          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let usuario of usuarios">
-          <td>{{ usuario.id }}</td>
-          <td>{{ usuario.nombre }}</td>
-          <td>{{ usuario.correo }}</td>
-          <td>{{ usuario.contraseña }}</td>
-          <td>
-            <button
-              class="btn btn-sm btn-warning me-1"
-              (click)="editarUsuario(usuario)"
-            >
-              <i class="bi bi-pencil-fill"></i>
+        <td>{{usuario.id}}</td>
+        <td>{{usuario.nombre}}</td>
+        <td>{{usuario.correo}}</td>
+        <td>{{usuario['contraseña']}}</td>
+
+        <td>
+            <button class="btn btn-sm btn-warning me-1" (click)="editarUsuario(usuario)">
+                <i class="bi bi-pencil-fill"></i>
             </button>
-            <button
-              class="btn btn-sm btn-danger"
-              (click)="eliminarUsuario(usuario.id)"
-            >
+            <button class="btn btn-sm btn-danger" (click)="eliminarUsuario(usuario.id!)">
               <i class="bi bi-trash-fill"></i>
             </button>
-          </td>
-        </tr>
+        </td>
       </tbody>
     </table>
   </div>
