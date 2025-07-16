@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Usuarios {
-  id_usuario?: number;
+  id?: number;
   nombre: string;
   correo: string;
   contraseña: string;
@@ -21,12 +21,12 @@ export class UsuariosService {
     return this.http.get<Usuarios[]>(this.apiUrl);
   }
 
-  crearUsuarios(cliente: Usuarios): Observable<any> {
-    return this.http.post(this.apiUrl, cliente);
+  crearUsuarios(usr: Usuarios): Observable<any> {
+    return this.http.post(this.apiUrl, usr);
   }
 
-  actualizarUsuarios(id: number, cliente: Usuarios): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, cliente);
+  editarUsuarios(id: number, usr: Usuarios): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, usr);
   }
 
   eliminarUsuarios(id: number): Observable<any> {

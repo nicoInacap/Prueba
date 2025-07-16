@@ -10,67 +10,71 @@ import { UsuariosService, Usuarios } from '../../services/usuario.service';
   templateUrl: './usuarios.html',
   styleUrls: ['./usuarios.css']
 })
-export class Usuarios implements OnInit {
-  clientes: Usuarios[] = [];
-  clienteNuevo: Usuarios = {
+export class UsuariosComponent implements OnInit {
+  usuarios: Usuarios[] = [];
+  usuarioNuevo: Usuarios = {
     nombre: '',
     correo: '',
     contraseña: ''
   };
   modoEdicion = false;
-  idClienteEditando: number | null = null;
+  idUsuarioEditando: number | null = null;
 
-  constructor(private clienteService: UsuariosService) {}
+  constructor(private usuarioService: UsuariosService) {}
 
   ngOnInit(): void {
-    this.cargarClientes();
+    this.cargarUsuarios();
   }
 
-  cargarClientes(): void {
-    this.clienteService.obtenerUsuarios().subscribe({
-      next: data    => this.clientes = data,
-      error: err    => console.error('Error al cargar clientes:', err)
+  cargarUsuarios(): void {
+    this.usuarioService.obtenerUsuarios().subscribe({
+      next: (data: Usuarios[]) => {
+        this.usuarios = data;
+      },
+      error: (err: any) => {
+        console.error('Error al cargar usuarios:', err);
+      }
     });
   }
 
-  guardarCliente(): void {
-    if (this.modoEdicion && this.idClienteEditando != null) {
-      // ACTUALIZAR
-      this.clienteService
-        .actualizarUsuarios(this.idClienteEditando, this.clienteNuevo)
+  guardarUsuario(): void {
+    if (this.modoEdicion && this.idUsuarioEditando != null) {
+      // Actualizar usuario existente
+      this.usuarioService
+        .editarUsuarios(this.idUsuarioEditando, this.usuarioNuevo)
         .subscribe(() => {
-          this.cargarClientes();
+          this.cargarUsuarios();
           this.resetFormulario();
         });
     } else {
-      // CREAR NUEVO
-      this.clienteService
-        .crearUsuarios(this.clienteNuevo)
+      // Crear nuevo usuario
+      this.usuarioService
+        .crearUsuarios(this.usuarioNuevo)
         .subscribe(() => {
-          this.cargarClientes();
+          this.cargarUsuarios();
           this.resetFormulario();
         });
     }
   }
 
-  editarCliente(cliente: Usuarios): void {
+  editarUsuario(usuario: Usuarios): void {
     this.modoEdicion = true;
-    this.idClienteEditando = cliente.id_cliente ?? null;
-    this.clienteNuevo = { ...cliente };
+    this.idUsuarioEditando = usuario.id ?? null;
+    this.usuarioNuevo = { ...usuario };
   }
 
-  eliminarCliente(id: number): void {
-    if (confirm('¿Estás seguro de eliminar este cliente?')) {
-      this.clienteService.eliminarUsuarios(id).subscribe(() => {
-        this.cargarClientes();
+  eliminarUsuario(id: number): void {
+    if (confirm('¿Estás seguro de eliminar este usuario?')) {
+      this.usuarioService.eliminarUsuarios(id).subscribe(() => {
+        this.cargarUsuarios();
       });
     }
   }
 
   resetFormulario(): void {
     this.modoEdicion = false;
-    this.idClienteEditando = null;
-    this.clienteNuevo = {
+    this.idUsuarioEditando = null;
+    this.usuarioNuevo = {
       nombre: '',
       correo: '',
       contraseña: ''
