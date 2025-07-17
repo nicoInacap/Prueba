@@ -5,8 +5,7 @@ import { Observable } from "rxjs";
 export interface Autores {
   id_autor?: number;
   nombre: string;
-  correo: string;
-  contraseña: string;
+  nacionalidad: string;
 }
 @Injectable({
   providedIn: "root"

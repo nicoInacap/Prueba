@@ -15,8 +15,7 @@ export class AutoresComponent implements OnInit {
   autores: Autores[] = [];
   autorNuevo: Autores = {
     nombre: '',
-    correo: '',
-    contraseña: ''
+    nacionalidad: ''
   };
   modoEdicion = false;
   idAutorEditando: number | null = null;
@@ -75,7 +74,7 @@ export class AutoresComponent implements OnInit {
   resetFormulario(): void {
     this.modoEdicion = false;
     this.idAutorEditando = null;
-    this.autorNuevo = { nombre: '', correo: '', contraseña: '' };
+    this.autorNuevo = { nombre: '', nacionalidad: ''};
   }
 }
 
