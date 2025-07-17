@@ -1,0 +1,62 @@
+/* Contenedor principal */
+.container-fluid {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Título */
+h2.text-primary {
+  font-weight: 600;
+  border-bottom: 2px solid #0d6efd;
+  padding-bottom: 0.5rem;
+}
+
+/* Formulario */
+form {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Inputs del formulario */
+input.form-control {
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+}
+
+/* Botones del formulario */
+button[type="submit"] {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tabla */
+.table {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Encabezado de tabla */
+.table-dark th {
+  background-color: #343a40 !important;
+  color: #fff;
+}
+
+/* Celdas */
+.table td {
+  vertical-align: middle;
+}
+
+/* Botones de acciones */
+.btn-sm {
+  transition: transform 0.2s ease;
+}
+
+.btn-sm:hover {
+  transform: scale(1.05);
+}
