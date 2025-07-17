@@ -38,7 +38,7 @@ export class AutoresComponent implements OnInit {
     });
   }
 
-  guardarAutores(): void {
+  guardarAutor(): void {
     if (this.modoEdicion && this.idAutorEditando != null) {
       // Actualizar autor existente
       this.autoresSrv

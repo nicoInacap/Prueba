@@ -1,4 +1,4 @@
-<!-- src/app/pages/autores/usuarios.html-->
+<!-- src/app/pages/autores/autores.html-->
  <div class="container-fluid px-4 py-4">
   <h2 class="text-primary mb-4">Autores</h2>
 
@@ -52,7 +52,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let autor of autores">
-                    <td>{{autor.id}}</td>
+                    <td>{{autor.id_autor}}</td>
                     <td>{{autor.nombre}}</td>
                     <td>{{autor.correo}}</td>
                     <td>{{autor['contraseña']}}</td>
@@ -61,7 +61,7 @@
                         <button class="btn btn-sm btn-warning me-1" (click)="editarAutor(autor)">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button class="btn btn-sm btn-danger" (click)="eliminarAutor(autor.id!)">
+                        <button class="btn btn-sm btn-danger" (click)="eliminarAutor(autor.id_autor!)">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
