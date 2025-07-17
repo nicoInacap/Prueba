@@ -63,9 +63,9 @@ export class AutoresComponent implements OnInit {
     this.autorNuevo = { ...autor }; // Clonar el autor para editar
   }
 
-  eliminarAutor(id: number): void {
+  eliminarAutores(id_autor: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este autor?')) {
-      this.autoresSrv.eliminarAutores(id).subscribe(() => {
+      this.autoresSrv.eliminarAutores(id_autor).subscribe(() => {
         this.cargarAutores();
       });
     }
