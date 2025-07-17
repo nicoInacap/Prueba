@@ -59,7 +59,7 @@ export class AutoresComponent implements OnInit {
 
   editarAutor(autor: Autores): void {
     this.modoEdicion = true;
-    this.idAutorEditando = autor.id_autor || null;
+    this.idAutorEditando = autor.id || null;
     this.autorNuevo = { ...autor }; // Clonar el autor para editar
   }
 
