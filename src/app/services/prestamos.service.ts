@@ -6,6 +6,8 @@ export interface Prestamos {
   id?: number;
   id_libro: string;
   id_usuario: string;
+  fecha_prestamo: string;
+  fecha_devolucion: string;
 }
 @Injectable({
   providedIn: "root"

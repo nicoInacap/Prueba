@@ -14,7 +14,9 @@ export class PrestamosComponent implements OnInit {
   prestamos: Prestamos[] = [];
   prestamoNuevo: Prestamos = {
     id_libro: '',
-    id_usuario: ''
+    id_usuario: '',
+    fecha_prestamo: '',
+    fecha_devolucion: ''
   };
   modoEdicion = false;
   idPrestamoEditando: number | null = null;
@@ -73,7 +75,9 @@ export class PrestamosComponent implements OnInit {
     this.idPrestamoEditando = null;
     this.prestamoNuevo = {
       id_libro: '',
-      id_usuario: ''
+      id_usuario: '',
+      fecha_prestamo: '',
+      fecha_devolucion: ''
     };
   }
 }
