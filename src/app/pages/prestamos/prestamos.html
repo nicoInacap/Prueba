@@ -5,18 +5,18 @@
   <!-- Formulario para crear/editar préstamo -->
   <form (ngSubmit)="guardarPrestamos()" class="row g-2 mb-4 align-items-end">
     <div class="col-md-4">
-      <label class="form-label">ID Libro</label>
+      <label class="form-label">Prestamo</label>
       <input
-        [(ngModel)]="prestamoNuevo.id_libro"
+        [(ngModel)]="prestamoNuevo.fecha_prestamo"
         name="id_libro"
         class="form-control"
         required
       />
     </div>
     <div class="col-md-4">
-      <label class="form-label">ID Usuario</label>
+      <label class="form-label">Devolución</label>
       <input
-        [(ngModel)]="prestamoNuevo.id_usuario"
+        [(ngModel)]="prestamoNuevo.fecha_devolucion"
         name="id_usuario"
         class="form-control"
         required
@@ -35,8 +35,10 @@
       <thead class="table-dark">
         <tr>
           <th>ID</th>
-          <th>ID Libro</th>
-          <th>ID Usuario</th>
+          <th>Libro</th>
+          <th>Usuario</th>
+          <th>fecha prestamo</th>
+          <th>fecha devolución</th>
         </tr>
       </thead>
       <tbody>
@@ -44,7 +46,8 @@
           <td>{{prestamo.id}}</td>
           <td>{{prestamo.id_libro}}</td>
           <td>{{prestamo.id_usuario}}</td>
-
+          <td>{{prestamo.fecha_prestamo}}</td>
+          <td>{{prestamo.fecha_devolucion}}</td>
           <td>
             <button class="btn btn-sm btn-warning me-1" (click)="editarPrestamos(prestamo)">
               <i class="bi bi-pencil-fill"></i>

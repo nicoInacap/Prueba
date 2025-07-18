@@ -59,13 +59,14 @@ export class AutoresComponent implements OnInit {
 
   editarAutor(autor: Autores): void {
     this.modoEdicion = true;
-    this.idAutorEditando = autor.id_autor || null;
+    this.idAutorEditando = autor.id || null;
     this.autorNuevo = { ...autor }; // Clonar el autor para editar
   }
 
-  eliminarAutor(id_autor: number): void {
+
+  eliminarAutor(id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este autor?')) {
-      this.autoresSrv.eliminarAutores(id_autor).subscribe(() => {
+      this.autoresSrv.eliminarAutores(id).subscribe(() => {
         this.cargarAutores();
       });
     }
